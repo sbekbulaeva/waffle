@@ -1,0 +1,14 @@
+name: learn-github-actions
+on: [push]
+jobs:
+  check-pandas-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: Install dependencies
+      - run: pip install pandas
+      - run: python -c "import pandas; pandas.__version__"
