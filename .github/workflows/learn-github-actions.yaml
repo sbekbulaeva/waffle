@@ -11,4 +11,4 @@ jobs:
           python-version: "3.9"
       - name: Install dependencies
         run: pip install pandas
-      - run: python -c "import pandas; pandas.__version__"
+      - run: python -c "import pandas; print(pandas.__version__)"
