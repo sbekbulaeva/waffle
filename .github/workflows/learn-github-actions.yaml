@@ -9,6 +9,11 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: "3.9"
+        env:
+          DUMMY_ENV: hellothere
       - name: Install dependencies
         run: pip install pandas
       - run: python -c "import pandas; print(pandas.__version__)"
+      - name: Run build script
+        run: ./.github/scripts/build.sh
+        shell: bash
