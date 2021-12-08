@@ -17,3 +17,18 @@ jobs:
       - name: Run build script
         run: ./.github/scripts/build.sh
         shell: bash
+      - name: Create log file
+        run: expr 1 + 1 > output.log
+      - name: Upload to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: output-log-file
+          path: output.log
+  example-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: output-log-file
+          needs: upload-job-name
