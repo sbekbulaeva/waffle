@@ -29,9 +29,9 @@ jobs:
           path: output.log
   example-job:
     runs-on: ubuntu-latest
+    needs: [check-pandas-version]
     steps:
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
           name: output-log-file
-          needs: check-pandas-version ${{ matrix.python }}
