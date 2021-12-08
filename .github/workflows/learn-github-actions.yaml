@@ -3,12 +3,15 @@ on: [push]
 jobs:
   check-pandas-version:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.6, 3.8, 3.10]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
-          python-version: "3.9"
+          python-version: ${{ matrix.python }}
         env:
           DUMMY_ENV: hellothere
       - name: Install dependencies
