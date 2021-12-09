@@ -4,8 +4,8 @@ import webbrowser
 
 import httpx
 
-from waffle import sprinkles
-from waffle.baker import waffle_baker
+from waffles import sprinkles
+from waffles.baker import waffle_baker
 
 URL = "https://gw.hellofresh.com/api/recipes/search"
 
