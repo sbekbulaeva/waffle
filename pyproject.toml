@@ -6,8 +6,20 @@ authors = ["Shahnoza Bekbulaeva <shakhnoza.bekbulaeva@nttdata.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+httpx = "^0.21.1"
+rich = "^10.15.2"
+python-decouple = "^3.5"
 
 [tool.poetry.dev-dependencies]
+ipykernel = "^6.6.0"
+black = "^21.10b0"
+pytest = "flake8"
+flake8 = "^4.0.1"
+pyupgrade = "^2.29.0"
+mypy = "^0.910"
+pre-commit = "^2.15.0"
+pylint = "^2.11.1"
+poetry-version-plugin = "^0.1.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
