@@ -30,8 +30,11 @@ headers = {
     "user-agent": user_agent,
 }
 
-response = httpx.get(URL, params=params, headers=headers)
-r = response.json()
+
+def get_receips_list():
+    response = httpx.get(URL, params=params, headers=headers)
+    r = response.json()
+
 
 receipts = [
     {
