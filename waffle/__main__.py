@@ -1,1 +1,1 @@
-from waffle import waffle  # noqa: F401
+from waffle import waffle  # type: ignore # noqa F401 # pylint: disable=W0611

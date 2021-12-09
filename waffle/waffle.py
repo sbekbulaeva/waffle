@@ -7,23 +7,22 @@ import httpx
 from waffle import sprinkles
 from waffle.baker import waffle_baker
 
-URL = f"https://gw.hellofresh.com/api/recipes/search"
+URL = "https://gw.hellofresh.com/api/recipes/search"
 
 
-user_agent = "Shahnoza"
 headers = {
     "accept": "applicaton/json",
     "Authorization": f"Bearer {sprinkles.TOKEN}",
-    "user-agent": user_agent,
+    "user-agent": sprinkles.USER_AGENT,
 }
 
 
-def get_receipts_list(params: t.Dict):
-    response = httpx.get(URL, params=params, headers=headers)
+def get_receipts_list(payload: t.Dict) -> t.Dict:
+    response = httpx.get(URL, params=payload, headers=headers)
     return response.json()
 
 
-def get_random_receipt(json_response: t.Dict):
+def get_random_receipt(json_response: t.Dict) -> t.Dict:
 
     receipts = [
         {
@@ -52,14 +51,14 @@ def get_random_receipt(json_response: t.Dict):
 
 
 params = {
-    "limit": sprinkles.limit,
-    "locale": sprinkles.language,
-    "country": sprinkles.country,
-    "max-prep-time": sprinkles.max_prep_time,
+    "limit": sprinkles.LIMIT,
+    "locale": sprinkles.LANGUAGE,
+    "country": sprinkles.COUNTRY,
+    "max-prep-time": sprinkles.MAX_PREP_TIME,
     "sort": "-favorites",
 }
 
-response_json = get_receipts_list(params=params)
+response_json = get_receipts_list(payload=params)
 cook = get_random_receipt(response_json)
 webbrowser.open_new_tab(cook["link"])
 waffle_baker(cook)

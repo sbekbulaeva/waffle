@@ -1,9 +1,10 @@
 from decouple import config
 
-limit = 16
-language = "en-GB"
-country = "gb"
-max_prep_time = 30
-min_rating = 3.3
+LIMIT = 16
+LANGUAGE = "en-GB"
+COUNTRY = "gb"
+MAX_PREP_TIME = 30
+MIN_RATING = 3.3
+USER_AGENT = "Shahnozas Bakery"
 
 TOKEN = config("TOKEN")
