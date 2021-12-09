@@ -1,6 +1,6 @@
-import random  # type: ignore
+import random
 import typing as t
-import webbrowser  # type: ignore
+import webbrowser
 
 import httpx
 

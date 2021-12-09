@@ -1,1 +1,1 @@
-from waffle import waffle
+from waffle import waffle  # noqa: F401
