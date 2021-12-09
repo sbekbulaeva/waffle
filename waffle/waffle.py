@@ -31,9 +31,8 @@ headers = {
 }
 
 
-def get_receips_list():
-    response = httpx.get(URL, params=params, headers=headers)
-    r = response.json()
+response = httpx.get(URL, params=params, headers=headers)
+r = response.json()
 
 
 receipts = [
