@@ -1,6 +1,6 @@
 # waffle
 
-Package managers war: 
+Package managers war:
 
             - How many use vanilla pip, docker, conda.
             - Choose your tool, if PDM shoutout. poetry

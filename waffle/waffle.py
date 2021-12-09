@@ -1,27 +1,14 @@
-import random
-import webbrowser
+import random  # type: ignore
+import typing as t
+import webbrowser  # type: ignore
 
 import httpx
-from rich.console import Console
 
 from waffle import sprinkles
-
-console = Console()
-
-limit = 16
-language = "en-GB"
-country = "gb"
-max_prep_time = 30
-min_rating = 3.3
+from waffle.baker import waffle_baker
 
 URL = f"https://gw.hellofresh.com/api/recipes/search"
-params = {
-    "limit": limit,
-    "locale": language,
-    "country": country,
-    "max-prep-time": max_prep_time,
-    "sort": "-favorites",
-}
+
 
 user_agent = "Shahnoza"
 headers = {
@@ -31,34 +18,48 @@ headers = {
 }
 
 
-response = httpx.get(URL, params=params, headers=headers)
-r = response.json()
+def get_receipts_list(params: t.Dict):
+    response = httpx.get(URL, params=params, headers=headers)
+    return response.json()
 
 
-receipts = [
-    {
-        "name": receipt["name"],
-        "link": receipt["cardLink"],
-        "ingredients": receipt["ingredients"],
-        "serving": receipt["yields"][0]["ingredients"],
+def get_random_receipt(json_response: t.Dict):
+
+    receipts = [
+        {
+            "name": receipt["name"],
+            "link": receipt["cardLink"],
+            "ingredients": receipt["ingredients"],
+            "serving": receipt["yields"][0]["ingredients"],
+        }
+        for receipt in json_response["items"]
+    ]
+
+    ingredients_ids = {
+        ingredient["id"]: ingredient["name"]
+        for receipt in receipts
+        for ingredient in receipt["ingredients"]
     }
-    for receipt in r["items"]
-]
+    random_receipt = random.choice(receipts)
+    return {
+        "dish": random_receipt["name"],
+        "link": random_receipt["link"],
+        "shopping list": {
+            ingredients_ids[serving["id"]]: f'{serving["amount"]} {serving["unit"]}'
+            for serving in random_receipt["serving"]
+        },
+    }
 
-ingredients_ids = {
-    ingredient["id"]: ingredient["name"]
-    for receipt in receipts
-    for ingredient in receipt["ingredients"]
-}
-random_receipt = random.choice(receipts)
-cook = {
-    "dish": random_receipt["name"],
-    "link": random_receipt["link"],
-    "shopping list": {
-        ingredients_ids[serving["id"]]: f'{serving["amount"]} {serving["unit"]}'
-        for serving in random_receipt["serving"]
-    },
+
+params = {
+    "limit": sprinkles.limit,
+    "locale": sprinkles.language,
+    "country": sprinkles.country,
+    "max-prep-time": sprinkles.max_prep_time,
+    "sort": "-favorites",
 }
 
+response_json = get_receipts_list(params=params)
+cook = get_random_receipt(response_json)
 webbrowser.open_new_tab(cook["link"])
-console.print(cook)
+waffle_baker(cook)
