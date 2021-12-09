@@ -94,11 +94,11 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "dist/*"
-          token: ${{ secrets.WAFFLE_TOKEN }}
+          token: ${{ secrets.PYPI_TOKEN }}
           draft: false
           prerelease: steps.check-version.outputs.prerelease == 'true'
 
       - name: Publish to PyPI
         env:
-          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.WAFFLE_TOKEN }}
         run: poetry publish
