@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "waffle"
+name = "waffles"
 version = "0.0.1"
 description = ""
 authors = ["Shahnoza Bekbulaeva <shakhnoza.bekbulaeva@nttdata.com>"]
